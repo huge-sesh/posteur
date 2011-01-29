@@ -1,6 +1,7 @@
-import mechanize
+import mechanize.mechanize as mechanize
 from parsers import *
 from forum import *
+from view import *
 import getpass
 from motd import motd
 
@@ -11,6 +12,7 @@ class Posteur:
     self.threadid = None
     self.thread_parser = ThreadParser()
     self.forum_parser = ForumParser()
+    self.view = UnixView()
 
   def login(self):
     """login to the forums"""
@@ -37,7 +39,7 @@ class Posteur:
     for t in threads:
       alpha -= 1
       self.threads[chr(alpha)] = t
-      print('' + chr(alpha) + ' |' + t.__repr__())
+    self.view.print_threads(threads)
 
   def thread(self, alpha):
     """read a thread"""
@@ -55,7 +57,7 @@ class Posteur:
     for post in posts:
       alpha -= 1
       self.posts[chr(alpha)] = post
-      print ('' + chr(alpha) + ' |' + post.__repr__())
+    self.view.print_posts(posts)
 
   def post(self, message, quoteid):
     """post a message to the last read thread"""

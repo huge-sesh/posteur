@@ -11,13 +11,13 @@ class Thread:
   def unread_zero(self):
     self.unread = 0
 
-  def __repr__(self):
-    unread = ' %2d ' % self.unread
+  def unread_str(self):
     if (self.unread == -1):
-      unread = '    '
+      return '    '
     if (self.unread > 99):
-      unread = 'lots'
-    return '%s| %s | %s' % (unread, self.title, self.author)
+      return 'lots'
+    else:
+      return ' %2d ' % self.unread
 
 class Post:
   def __init__(self, id):
@@ -31,6 +31,3 @@ class Post:
   def open_quote(self):
     """ needed to assign this from a lambda """
     self.message += '{'
-
-  def __repr__(self):
-    return ' %s: %s' % (self.author, self.message)
