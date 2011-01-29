@@ -1,7 +1,7 @@
 """ some classes for holding data about threads and posts, 
 __repr__ is used for displaying to the end user though """
 
-class Thread:
+class Thread(object):
   def __init__(self, id):
     self.id = id
     self.author = 'author'
@@ -19,7 +19,7 @@ class Thread:
     else:
       return ' %2d ' % self.unread
 
-class Post:
+class Post(object):
   def __init__(self, id):
     self.id = id
     self.message = ''

@@ -1,3 +1,7 @@
+import os, struct
+import fcntl, termios
+import sys
+
 class UnixView:
   def __init__(self):
     self.size = self.get_size()
@@ -29,8 +33,8 @@ class UnixView:
       position = message_width
       message_width = self.size[1] - 6
       while position < len(post.message):
-	print('      %s' % (post.message[position:position+message_width]))
-	position += message_width
+        print('      %s' % (post.message[position:position+message_width]))
+        position += message_width
       #print ('' + chr(alpha) + ' |' + post.__repr__())
 
   def get_size(self):

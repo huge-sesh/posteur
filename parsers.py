@@ -1,5 +1,5 @@
 from HTMLParser import HTMLParser
-from forum import *
+from forum import Thread, Post
 
 class ParserBase(HTMLParser):
   """base class for ThreadParser and ForumParser
@@ -61,8 +61,8 @@ class ThreadParser(ParserBase):
       if attr[0] == 'id':
         postid = int(attr[1][4:])
         self.posts.append(Post(postid))
-	self.post = self.posts[-1]
-	return
+        self.post = self.posts[-1]
+        return
 
   def read_thread(self, str):
     self.reset()
@@ -84,7 +84,7 @@ class ThreadParser(ParserBase):
       data = data.strip()
       if data != '':
         if self.post.message != '' and self.post.message[-1] != ' ':
-	  self.post.message += ' '
+          self.post.message += ' '
         self.post.message += data
     
 class ForumParser(ParserBase):

@@ -1,11 +1,11 @@
 import mechanize.mechanize as mechanize
-from parsers import *
-from forum import *
-from view import *
+from parsers import ThreadParser, ForumParser
+from view import UnixView
 import getpass
+import traceback
 from motd import motd
 
-class Posteur:
+class Posteur(object):
   def __init__(self):
     self.browser = mechanize.Browser()
     self.forumid = None
@@ -23,9 +23,8 @@ class Posteur:
     self.browser['password'] = getpass.unix_getpass('password: ')
     self.browser.submit()
 
-  def forum(self, forumid):
+  def forum(self, forumid = None):
     """get thread list for the forum requested"""
-
     if forumid != None:
       self.forumid = forumid
     if self.forumid == None:
@@ -79,48 +78,47 @@ class Posteur:
       try: 
         command = raw_input('>')
         words = command.split()
-	if (len(words) == 0):
-	  continue
+        if (len(words) == 0):
+          continue
 
         #forum request
         if words[0] == 'f':
-	  if (len(words) > 1):
-	    self.forum(int(words[1]))
-	  else:
-	    self.forum(None)
+          if (len(words) > 1):
+            self.forum(int(words[1]))
+          else:
+            self.forum()
 
         #thread request
-	elif words[0] == 't':
-	  if (len(words) > 1):
-	    self.thread(words[1])
-	  else:
-	    self.thread(None)
+        elif words[0] == 't':
+          if (len(words) > 1):
+            self.thread(words[1])
+          else:
+            self.thread(None)
 
         #post to last thread
-	elif words[0] == 'p':
-	    self.post(command[2:], None)
+        elif words[0] == 'p':
+            self.post(command[2:], None)
 
         #quote a post
-	elif words[0] == 'q':
-	  if (len(words) == 1):
-	    print('quote which post?')
-	  elif self.posts.get(words[1]) != None:
-	    self.post(command[4:], self.posts[words[1]].id)
-	  else:
-	    print('no match for ['+words[1]+'] in: '+self.posts.keys())
+        elif words[0] == 'q':
+          if (len(words) == 1):
+            print('quote which post?')
+          elif self.posts.get(words[1]) != None:
+            self.post(command[4:], self.posts[words[1]].id)
+          else:
+            print('no match for ['+words[1]+'] in: '+self.posts.keys())
 
-	else:
-	  print('what?')
+        else:
+          print('what?')
 
       #continue on exception unless ^D or ^C
-      except Exception as e:
-        if isinstance(e, KeyboardInterrupt) or isinstance(e, EOFError):
-	  break
-	else:
-	  print(e.__class__, e)
+      except (KeyboardInterrupt, EOFError):
+        break
+      except Exception:
+        traceback.print_exc()
 
 if __name__ == '__main__':
-  print(motd)
   p = Posteur()
+  print(motd)
   p.login()
   p.repl()
