@@ -21,7 +21,8 @@ class Posteur(object):
     self.browser.select_form(predicate = lambda form: form.action == 'http://forums.somethingawful.com/account.php')
     self.browser['username'] = raw_input('username: ')
     self.browser['password'] = getpass.unix_getpass('password: ')
-    self.browser.submit()
+    response = self.browser.submit().read()
+    return response.find('BAD PASSWORD') == -1
 
   def forum(self, forumid = None):
     """get thread list for the forum requested"""
@@ -120,5 +121,6 @@ class Posteur(object):
 if __name__ == '__main__':
   p = Posteur()
   print(motd)
-  p.login()
+  while not p.login():
+    print('login failed')
   p.repl()
