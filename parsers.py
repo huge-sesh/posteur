@@ -97,6 +97,7 @@ class ForumParser(ParserBase):
     self.listeners.append(('a', 'class', 'count', lambda parser, attrs: parser.set_mode('unread')))
     self.listeners.append(('a', 'class', 'x', lambda parser, attrs: parser.thread.unread_zero()))
     self.listeners.append(('tr', 'class', 'thread', ForumParser.handle_threadid))
+    self.listeners.append(('tr', 'class', 'thread seen', ForumParser.handle_threadid))
     self.threads = []
 
   def handle_threadid(self, attrs):
