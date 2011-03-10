@@ -17,7 +17,7 @@ motd = u"""
 |　f forumid　　       | 　 ◣　　　 ▊　　　　　　　　　　　 　 　 　 ▀▋　　██
 |　t thread            |　　 ▊　 　 ▉　　　　　　　　　　　　　　　　 　 ▂◢█▉
 |　p post              |　　　▋ 　 █　　　　　　　　　　　　　　　 　 　 　 ██◣
-|　q threadletter post |    　 ◥◣ ▼　　　　　　　　　　　　　　　　　 　 　 █▊
+|　q quote post        |    　 ◥◣ ▼　　　　　　　　　　　　　　　　　 　 　 █▊
 \__________________  _/　　　　◥▌ ◥◣▃◤▀◥　　　　　　　 　 　 　 　 　 　 ▼
 　　　　　　　　　 \|     　　　▉　　 　 　 　 ▂◤　　　　　　 　 ▲　　 　 ▌
 　　　　　　　　　 　 　     　 ◥▊　◥▅▅▅▀▀　　　　　 　 　 ◢▊　　　　 ▋
